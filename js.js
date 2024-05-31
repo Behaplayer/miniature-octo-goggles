@@ -57,31 +57,40 @@
 
 // const addCard = [];
 const inputBtn = document.getElementById("theInputBtn");
-const input = document.getElementById("input");
+const inputName = document.getElementById("inputName");
+const inputAge = document.getElementById("inputAge");
+const inputCountry = document.getElementById("inputCountry");
 let i = localStorage.length;
-let inputLength = input.value.length;
-let objLS = [localStorage];
+let inputLength = inputName.value.length;
+let itemsObject = [{}];
 
-console.log(JSON.stringify());
-
-input.addEventListener("input", () => {
-  inputLength = input.value.length;
+inputName.addEventListener("input", () => {
+  inputLength = inputName.value.length;
 });
 
 inputBtn.addEventListener("click", () => {
-  localStorage.setItem(`anItem${i}`, `${input.value}`);
+  localStorage.setItem(`anItem${i}`, `${inputName.value}`);
   if (
     localStorage.getItem(`anItem${i}`) !=
       localStorage.getItem(`anItem${i - 1}`) &&
-    input.value.length != 0
+    inputName.value.length != 0
   ) {
-    let aCard = [localStorage].map(({ key, value }) => ({ [key]: value }));
+    itemsObject["0"][`itemName${i}`] = localStorage[`anItem${i}`];
+    document.getElementById("test1").innerHTML = itemsObject
+      .map(
+        (user) =>
+          `<div>
+        <div>Name: ${user[`itemName${i}`]}</div>
+      </div>`
+      )
+      .join("");
     console.log("200");
     i++;
   } else {
     localStorage.removeItem(`anItem${i}`);
     console.log("500");
   }
+  console.log(itemsObject);
 });
 
 // localStorage.clear();
