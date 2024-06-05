@@ -68,6 +68,22 @@ inputName.addEventListener("input", () => {
   inputLength = inputName.value.length;
 });
 
+if (i > 0) {
+  itemsObject["0"][`itemName${i - 1}`] = localStorage[`anItem${i - 1}`];
+  for (let k = 0; k < i; k++) {
+    console.log(k, i);
+    document.getElementById(`test${k}`).innerHTML = itemsObject
+      .map(
+        (user) =>
+          `
+        <h1 class="cardMainTitle">Name: ${user[`itemName${k}`]}</h1>
+        `
+      )
+      .join("");
+  }
+  itemsObject["0"][`itemName${i - 1}`] = localStorage[`anItem${i - 1}`];
+}
+
 inputBtn.addEventListener("click", () => {
   localStorage.setItem(`anItem${i}`, `${inputName.value}`);
   if (
@@ -76,12 +92,12 @@ inputBtn.addEventListener("click", () => {
     inputName.value.length != 0
   ) {
     itemsObject["0"][`itemName${i}`] = localStorage[`anItem${i}`];
-    document.getElementById("test1").innerHTML = itemsObject
+    document.getElementById(`test${i}`).innerHTML = itemsObject
       .map(
         (user) =>
-          `<div>
-        <div>Name: ${user[`itemName${i}`]}</div>
-      </div>`
+          `
+      <h1 class="cardMainTitle">Name: ${user[`itemName${i}`]}</h1>
+      `
       )
       .join("");
     console.log("200");
@@ -92,5 +108,15 @@ inputBtn.addEventListener("click", () => {
   }
   console.log(itemsObject);
 });
+
+let cardMainTitles = document.getElementsByClassName("cardMainTitle");
+
+// inputBtn.addEventListener("click", () => {
+//   console.log(cardMainTitles[i - 1].innerHTML);
+// });
+
+if (i > 1) {
+  cardMainTitles[i - 1].innerHTML = itemsObject["0"][`itemName${i - 1}`];
+}
 
 // localStorage.clear();
